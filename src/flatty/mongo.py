@@ -4,7 +4,7 @@
 Classes
 =======
 """
-import flatty
+from . import flatty
 from bson.objectid import ObjectId
 
 class Document(flatty.Schema):

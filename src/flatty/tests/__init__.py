@@ -1,8 +1,8 @@
 import unittest
 
-import test_actions
-import test_couchdb
-import test_mongodb
+from . import test_actions
+from . import test_couchdb
+from . import test_mongodb
 
 def suite():
     suite = unittest.TestSuite()

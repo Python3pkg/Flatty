@@ -41,8 +41,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'flatty'
-copyright = u'2011, Christian Haintz'
+project = 'flatty'
+copyright = '2011, Christian Haintz'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -176,8 +176,8 @@ htmlhelp_basename = 'flattydoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'flatty.tex', u'flatty Documentation',
-   u'Christian Haintz', 'manual'),
+  ('index', 'flatty.tex', 'flatty Documentation',
+   'Christian Haintz', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

@@ -4,15 +4,15 @@
 Classes
 =======
 """
-import flatty
+from . import flatty
 
 class Document(flatty.Schema):
 	"""
 	This class is the base Class for alls couchdb documents
 	"""
 	
-	_id = unicode
-	_rev = unicode
+	_id = str
+	_rev = str
 	
 	def store(self, db):
 		"""stores the document in the couchdb 
@@ -25,9 +25,9 @@ class Document(flatty.Schema):
 			same over time. `rev` changes on every store.
 		"""
 		flattened =  self.flatit()
-		if self._id == unicode:
+		if self._id == str:
 			del flattened['_id']
-		if self._rev == unicode:
+		if self._rev == str:
 			del flattened['_rev']
 		self._id, self._rev = db.save(flattened)
 		return self._id, self._rev

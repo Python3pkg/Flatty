@@ -6,7 +6,7 @@ import flatty
 import sys
 import copy
 
-from test_utils import is_plain_dict
+from .test_utils import is_plain_dict
 
 
 class ActionsTestCase(unittest.TestCase):
@@ -21,7 +21,7 @@ class ActionsTestCase(unittest.TestCase):
 		class Foo(object):
 			pass
 		
-		plain_dict = {'a':1, 'b': [1,3.023,u'utf','hallo'], 'c':{'aa':None,'bb':True}}
+		plain_dict = {'a':1, 'b': [1,3.023,'utf','hallo'], 'c':{'aa':None,'bb':True}}
 		self.assertTrue(is_plain_dict(plain_dict))
 		
 		cls_dict = copy.deepcopy(plain_dict)
@@ -198,7 +198,7 @@ class ActionsTestCase(unittest.TestCase):
 		self.assertTrue(str(type(n1.b)) == str(flatty.TypedDict))
 		self.assertTrue(isinstance(n1.b, flatty.TypedDict))
 		
-		for k,v in t1.b.items():
+		for k,v in list(t1.b.items()):
 			self.assertTrue(isinstance(n1.b[k], Name))
 			self.assertEqual(t1.b[k].first_name, n1.b[k].first_name)
 			self.assertEqual(t1.b[k].last_name, n1.b[k].last_name)

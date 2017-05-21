@@ -50,13 +50,12 @@ class MetaBaseFlattyType(type):
 		
 		 
 
-class BaseFlattyType(object):
+class BaseFlattyType(object, metaclass=MetaBaseFlattyType):
 	"""
 	This class is the base Class for all special flatty schema types.
 	These are :class:`TypedList` and :class:`TypedDict`
 	"""
 	ftype=None
-	__metaclass__ = MetaBaseFlattyType
 	
 	
 	
@@ -158,7 +157,7 @@ class Schema(object):
 	"""
 	def __init__(self, **kwargs):
 		#to comfortably set attributes via kwargs in the __init__
-		for name, value in kwargs.items():
+		for name, value in list(kwargs.items()):
 			if not hasattr(self, name):
 				raise AttributeError('Attribute not exists')
 			setattr(self, name, value)
@@ -180,7 +179,7 @@ class Schema(object):
 		return unflatit(cls, flat_dict)		
 			
 def _check_type(val, type):
-	if type == None or val == None or type == types.NoneType:
+	if type == None or val == None or type == type(None):
 		return
 	if inspect.isclass(type) == False:
 		type = type.__class__
@@ -345,7 +344,7 @@ class TypedListConverter(Converter):
 	def check_type(cls, attr_type, attr_value):
 		if not(issubclass(type(attr_value), attr_type) \
 			 or issubclass(type(attr_value), list) \
-			 or type(attr_value) == types.NoneType):
+			 or type(attr_value) == type(None)):
 			raise TypeError(repr(type(attr_value)) + '!=' + repr(attr_type))
 	
 	
@@ -384,7 +383,7 @@ class TypedDictConverter(Converter):
 	def check_type(cls, attr_type, attr_value):
 		if not(issubclass(type(attr_value), attr_type) \
 			 or issubclass(type(attr_value), dict) \
-			 or type(attr_value) == types.NoneType):
+			 or type(attr_value) == type(None)):
 			raise TypeError(repr(type(attr_value)) + '!=' + repr(attr_type))
 	
 	
@@ -394,7 +393,7 @@ class TypedDictConverter(Converter):
 		if obj == None:
 			return None
 		flat_dict = {}
-		for k, v in obj.items():
+		for k, v in list(obj.items()):
 			check_type(obj_type.ftype, v)
 			flat_dict[k] = flatit(v)
 		return flat_dict
@@ -404,7 +403,7 @@ class TypedDictConverter(Converter):
 		if val == None:
 			return None
 		obj = val_type()
-		for k, v in val.items():
+		for k, v in list(val.items()):
 			obj[k] = unflatit(val_type.ftype, v)
 		return obj
 	

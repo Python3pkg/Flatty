@@ -1,24 +1,24 @@
 
 import types
-allowed_types = (types.NoneType,
- types.BooleanType, 
- types.IntType,
- types.LongType,
- types.FloatType,
- types.StringType,
- types.UnicodeType,
- types.ListType,
- types.DictType,
- types.NoneType)
+allowed_types = (type(None),
+ bool, 
+ int,
+ int,
+ float,
+ bytes,
+ str,
+ list,
+ dict,
+ type(None))
 
 def is_plain_dict(obj):
 	if isinstance(obj, allowed_types):
-		if isinstance(obj, types.DictType):
-			for v in obj.values():
+		if isinstance(obj, dict):
+			for v in list(obj.values()):
 				if not is_plain_dict(v):
 					return False
 				
-		if isinstance(obj, types.ListType):
+		if isinstance(obj, list):
 			for v in obj:
 				if not is_plain_dict(v):
 					return False

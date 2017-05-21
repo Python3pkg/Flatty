@@ -7,12 +7,12 @@ __homepage__ = "http://packages.python.org/flatty"
 __docformat__ = "restructuredtext"
 
 
-from flatty import *
+from .flatty import *
 try:
-    import mongo
+    from . import mongo
 except ImportError:
     pass
 try:
-    import couch
+    from . import couch
 except ImportError:
     pass
